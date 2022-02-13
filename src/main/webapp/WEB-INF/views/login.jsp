@@ -12,20 +12,19 @@
 
         // SDK 초기화 여부를 판단합니다.
         console.log(Kakao.isInitialized());
-
-        // window.addEventListener("load", e => {
-        //
-        // });
     </script>
 
     <script type="text/javascript">
+        // 카카오톡으로 로그인합니다.
         function loginWithKakao() {
-            Kakao.Auth.authorize({
-                redirectUri: location.origin + "/main"
-            });
             Kakao.Auth.login({
                 success: function(authObj) {
-                    alert("SUCCESS: " + JSON.stringify(authObj))
+                    // alert("SUCCESS: " + JSON.stringify(authObj));
+                    // 로그인 성공 시, 토큰을 할당해줍니다.
+                    Kakao.Auth.setAccessToken(authObj.access_token);
+                    Kakao.Auth.authorize({
+                        redirectUri: location.origin + "/main"
+                    });
                 },
                 fail: function(err) {
                     alert("ERR: " + JSON.stringify(err))
