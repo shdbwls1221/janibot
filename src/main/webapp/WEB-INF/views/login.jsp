@@ -18,8 +18,8 @@
         // 카카오톡으로 로그인합니다.
         function loginWithKakao() {
             Kakao.Auth.login({
+                scope: 'friends,talk_message',  // 친구목록, 메시지 보내기 동의
                 success: function(authObj) {
-                    // alert("SUCCESS: " + JSON.stringify(authObj));
                     // 로그인 성공 시, 토큰을 할당해줍니다.
                     Kakao.Auth.setAccessToken(authObj.access_token);
                     Kakao.Auth.authorize({
@@ -35,7 +35,7 @@
 </head>
 <body>
 <a id="custom-login-btn" href="javascript:loginWithKakao()">
-    <img src="../../resouurce/image/kakao_login_large_narrow.png" width="366" alt="카카오 로그인 버튼" />
+    <img src="../../resouurce/image/kakao_login_large_narrow.png" width="260" alt="카카오 로그인 버튼" />
 </a>
 </body>
 </html>
