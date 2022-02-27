@@ -12,6 +12,7 @@
         // SDK 초기화 여부를 판단합니다.
         console.log(Kakao.isInitialized());
 
+        // 로그인 성공 토큰이 없다면 로그인 화면으로 돌아갑니다.
         if (!Kakao.Auth.getAccessToken()) {
             window.location = location.origin;
         } else {
@@ -65,6 +66,12 @@
                 url: '/v1/api/talk/friends',
                 success: function (response) {
                     console.log('freinds: ', response);
+                    // 친구 목록을 표로 나타냅니다.
+                    // 지금은.. 팀에 친구가 없음.
+                    document.getElementById('total_count').innerText = response.total_count;
+                    response.elements.forEach(friend => {
+
+                    });
                 },
                 fail: function (error) {
                     console.log('freinds: ', error);
@@ -76,7 +83,7 @@
          * 로그아웃 합니다.
          */
         function logoutWithKakao() {
-            Kakao.Auth.logout(function() {
+            Kakao.Auth.logout(function () {
                 window.location = location.origin;
             });
         }
@@ -84,12 +91,40 @@
 </head>
 <body>
 <p>로그인 성공</p>
+
 <div>
     <div><img id="profile_image" alt="profile_image" src="" height="100px" width="100px"/></div>
     <div> 닉네임 : <span id="nickname"></span></div>
-
 </div>
+
 <a id="friends" href="javascript:friendsWithKakao()">친구목록</a> &nbsp;
 <a id="logout" href="javascript:logoutWithKakao()">로그아웃</a>
+
+<div>
+    <p>총 <span id="total_count">0</span>명</p>
+    <%-- 프로필 템플릿 샘플 --%>
+    <div>
+        <img alt="profile_image_1" src="" height="80px" width="80px"/>
+        <div class="friend-info-div" style="display: inline-block;">
+            <table>
+                <tbody>
+                <tr>
+                    <td class="table-header">ID</td>
+                    <td>id</td>
+                </tr>
+                <tr>
+                    <td class="table-header">UUID</td>
+                    <td>uuid</td>
+                </tr>
+                <tr>
+                    <td class="table-header">닉네임</td>
+                    <td>profile_nickname</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <button>자니?</button>
+    </div>
+</div>
 </body>
 </html>
